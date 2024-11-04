@@ -8,7 +8,6 @@
     <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://unpkg.com/lucide-react@0.263.1"></script>
     <style>
         .scale-102 {
             transform: scale(1.02);
@@ -26,46 +25,27 @@
 
     <script type="text/babel">
         const App = () => {
+            const [config, setConfig] = React.useState(null);
             const [hoveredStage, setHoveredStage] = React.useState(null);
             const [currentStage, setCurrentStage] = React.useState(0);
             const [progress, setProgress] = React.useState(0);
 
-            const stages = [
-                {
-                    phase: '階段一：專案啟動',
-                    amount: 'NT$19,425',
-                    color: 'blue',
-                    steps: [
-                        { name: '合約簽訂', status: '待執行' },
-                        { name: '首期付款確認', status: '重要' },
-                        { name: '雲端環境建置', status: '準備中' }
-                    ]
-                },
-                {
-                    phase: '階段二：開發階段',
-                    amount: '',
-                    color: 'indigo',
-                    steps: [
-                        { name: '前台網站設計', status: '準備中' },
-                        { name: '後台功能開發', status: '準備中' },
-                        { name: '資料庫建置', status: '準備中' }
-                    ]
-                },
-                {
-                    phase: '階段三：完成驗收',
-                    amount: 'NT$19,425',
-                    color: 'green',
-                    steps: [
-                        { name: '功能測試', status: '準備中' },
-                        { name: '結案驗收', status: '準備中' },
-                        { name: '教學訓練', status: '準備中' }
-                    ]
-                }
-            ];
-
             React.useEffect(() => {
-                setProgress(((currentStage + 1) / stages.length) * 100);
+                fetch('https://raw.githubusercontent.com/8866Jason/project-tracker/main/config.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        setConfig(data);
+                        setProgress(((currentStage + 1) / data.stages.length) * 100);
+                    });
             }, [currentStage]);
+
+            if (!config) {
+                return (
+                    <div className="flex justify-center items-center min-h-screen">
+                        <div className="text-xl">載入中...</div>
+                    </div>
+                );
+            }
 
             const getStatusColor = (status) => {
                 switch(status) {
@@ -78,16 +58,15 @@
 
             return (
                 <div className="p-8 max-w-4xl mx-auto bg-white rounded-2xl shadow-xl">
-                {/* Logo 放在這裡 */}
-        <div className="flex justify-center mb-4">
-            <img 
-                src="https://wpw.design/wp-content/uploads/2020/07/wpw-logo-s.png" 
-                alt="WPW Design Logo" 
-                className="h-[50px] w-auto object-contain"
-            />
-        </div>
-        <h2 className="text-3xl font-bold mb-8 text-center">網站開發進度追踪</h2>
-                    
+                    {/* Logo */}
+                    <div className="flex justify-center mb-4">
+                        <img 
+                            src={config.logo}
+                            alt="WPW Design Logo" 
+                            className="h-[50px] w-auto object-contain"
+                        />
+                    </div>
+                    <h2 className="text-3xl font-bold mb-8 text-center">{config.title}</h2>
                     
                     {/* 進度條 */}
                     <div className="mb-10 relative">
@@ -106,7 +85,7 @@
 
                     {/* 階段卡片 */}
                     <div className="space-y-6">
-                        {stages.map((stage, idx) => (
+                        {config.stages.map((stage, idx) => (
                             <div
                                 key={stage.phase}
                                 className={`border-2 rounded-xl p-6 transition-all duration-500 transform card
@@ -171,11 +150,11 @@
                         <button 
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setCurrentStage(Math.min(stages.length - 1, currentStage + 1));
+                                setCurrentStage(Math.min(config.stages.length - 1, currentStage + 1));
                             }}
                             className="flex items-center space-x-2 px-6 py-3 bg-blue-500 text-white rounded-lg
                                 hover:bg-blue-600 transition-colors duration-300 disabled:opacity-50"
-                            disabled={currentStage === stages.length - 1}
+                            disabled={currentStage === config.stages.length - 1}
                         >
                             <span>下一階段</span>
                         </button>
