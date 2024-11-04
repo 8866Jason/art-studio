@@ -4,7 +4,7 @@
   "stages": [
     {
       "phase": "階段一：專案啟動",
-      "amount": "NT$19,425",
+      "amount": "NT$54,075",
       "color": "blue",
       "steps": [
         { "name": "合約簽訂", "status": "待執行" },
@@ -24,7 +24,7 @@
     },
     {
       "phase": "階段三：完成驗收",
-      "amount": "NT$19,425",
+      "amount": "NT$54,075",
       "color": "green",
       "steps": [
         { "name": "功能測試", "status": "準備中" },
