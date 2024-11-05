@@ -8,7 +8,7 @@
       "color": "blue",
       "steps": [
         { "name": "合約簽訂", "status": "待執行" },
-        { "name": "首期付款確認", "status": "重要" },
+        { "name": "首期付款確認", "status": "待執行" },
         { "name": "雲端環境建置", "status": "準備中" }
       ]
     },
