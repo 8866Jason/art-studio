@@ -9,7 +9,7 @@
       "steps": [
         { "name": "合約簽訂", "status": "待執行" },
         { "name": "首期付款確認", "status": "完成" },
-        { "name": "雲端環境建置", "status": "進行中" }
+        { "name": "雲端環境建置", "status": "完成" }
       ]
     },
     {
@@ -18,8 +18,8 @@
       "color": "indigo",
       "steps": [
         { "name": "前台網站設計", "status": "準備中" },
-        { "name": "後台功能開發", "status": "準備中" },
-        { "name": "資料庫建置", "status": "準備中" }
+        { "name": "後台功能開發", "status": "進行中" },
+        { "name": "資料庫建置", "status": "完成" }
       ]
     },
     {
