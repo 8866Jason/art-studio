@@ -17,7 +17,7 @@
       "amount": "",
       "color": "indigo",
       "steps": [
-        { "name": "前台網站設計", "status": "準備中" },
+        { "name": "前台網站設計", "status": "進行中" },
         { "name": "後台功能開發", "status": "進行中" },
         { "name": "資料庫建置", "status": "完成" }
       ]
